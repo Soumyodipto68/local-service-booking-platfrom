@@ -3,6 +3,8 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 
 import authRoutes from "./routes/auth.routes.js";
+import testRoutes from "./routes/test.routes.js";
+
 const app = express();
 
 app.use(cors({
@@ -11,6 +13,7 @@ app.use(cors({
 }));
 
 app.use(authRoutes);
+app.use(testRoutes);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
