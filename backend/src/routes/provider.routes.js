@@ -4,7 +4,8 @@ import {
   createProviderProfile,
   getMyProviderProfile,
   toggleAvailability,
-  approveProvider
+  approveProvider,
+  searchProviders
 } from "../controllers/provider.controllers.js";
 
 import { protect }
@@ -51,3 +52,9 @@ router.patch(
   approveProvider
 );
 export default router;
+
+//SEARCH PROVIDERS
+router.get(
+  "/search",
+  searchProviders
+);

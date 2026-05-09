@@ -165,3 +165,57 @@ export const approveProvider = async (req, res) => {
   }
 
 };
+
+// SEARCH PROVIDERS 
+export const searchProviders = async (req, res) => {
+
+  try {
+
+    const {
+      city,
+      area,
+      profession
+    } = req.query;
+
+    const query = {};
+
+    if (profession) {
+      query.profession = {
+        $regex: profession,
+        $options: "i"
+      };
+    }
+
+    query.approvalStatus = "approved";
+
+    const providers =
+      await ProviderProfile.find(query)
+      .populate({
+        path: "userId",
+        match: {
+          city: city || { $exists: true },
+          area: area || { $exists: true }
+        },
+        select: "name city area"
+      });
+
+    // remove unmatched
+    const filtered =
+      providers.filter(
+        item => item.userId !== null
+      );
+
+    res.status(200).json({
+      success: true,
+      providers: filtered
+    });
+
+  } catch (error) {
+
+    res.status(500).json({
+      message: error.message
+    });
+
+  }
+
+};
