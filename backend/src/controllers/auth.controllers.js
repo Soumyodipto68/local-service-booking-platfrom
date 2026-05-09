@@ -1,16 +1,7 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
-
-const generateToken = (userId) => {
-  return jwt.sign(
-    { userId },
-    process.env.JWT_SECRET,
-    {
-      expiresIn: process.env.JWT_EXPIRES
-    }
-  );
-};
+import generateToken from "../utils/generateToken.js";
 
 export const register = async (req, res) => {
   try {
