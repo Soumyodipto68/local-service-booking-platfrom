@@ -18,6 +18,48 @@ export const createBooking = async (req, res) => {
       estimatedPrice
     } = req.body;
 
+    // CHECK PROVIDER PROFILE
+    const providerProfile =
+      await ProviderProfile.findOne({
+        userId: providerId
+      });
+
+    // PROFILE EXISTS?
+    if (!providerProfile) {
+
+      return res.status(404).json({
+        success: false,
+        message: "Provider profile not found"
+      });
+
+    }
+
+    // PROVIDER APPROVED?
+    if (
+      providerProfile.approvalStatus !==
+      "approved"
+    ) {
+
+      return res.status(400).json({
+        success: false,
+        message:
+          "Provider is not approved"
+      });
+
+    }
+
+    // PROVIDER AVAILABLE?
+    if (!providerProfile.availability) {
+
+      return res.status(400).json({
+        success: false,
+        message:
+          "Provider is unavailable"
+      });
+
+    }
+
+    // CREATE BOOKING
     const booking = await Booking.create({
 
       customerId: req.user._id,
@@ -35,7 +77,11 @@ export const createBooking = async (req, res) => {
 
       notes,
 
-      estimatedPrice
+      estimatedPrice,
+
+      issueImage:
+        req.file?.path || ""
+
     });
 
     res.status(201).json({
