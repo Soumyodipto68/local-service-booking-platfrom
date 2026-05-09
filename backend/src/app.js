@@ -1,7 +1,9 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import path from "path";
 
+// IMPORT ROUTES
 import authRoutes from "./routes/auth.routes.js";
 import testRoutes from "./routes/test.routes.js";
 import providerRoutes from "./routes/provider.routes.js";
@@ -21,6 +23,13 @@ app.use("/api/provider", providerRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/bookings", bookingRoutes);
 app.use("/api/reviews", reviewRoutes);
+
+app.use(
+  "/uploads",
+  express.static(
+    path.join(process.cwd(), "src/uploads")
+  )
+);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
