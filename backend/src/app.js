@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 
 import authRoutes from "./routes/auth.routes.js";
 import testRoutes from "./routes/test.routes.js";
+import providerRoutes from "./routes/provider.routes.js";
 
 const app = express();
 
@@ -12,8 +13,9 @@ app.use(cors({
     credentials: true
 }));
 
-app.use(authRoutes);
-app.use(testRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/test", testRoutes);
+app.use("/api/provider", providerRoutes);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
