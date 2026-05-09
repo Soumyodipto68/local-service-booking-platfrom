@@ -3,7 +3,8 @@ import express from "express";
 import {
   createProviderProfile,
   getMyProviderProfile,
-  toggleAvailability
+  toggleAvailability,
+  approveProvider
 } from "../controllers/provider.controllers.js";
 
 import { protect }
@@ -41,4 +42,12 @@ router.patch(
   toggleAvailability
 );
 
+
+// APPROVE PROVIDER (ADMIN)
+router.patch(
+  "/approve/:id",
+  protect,
+  authorizeRoles("admin"),
+  approveProvider
+);
 export default router;

@@ -128,3 +128,40 @@ export const toggleAvailability = async (req, res) => {
   }
 
 };
+
+// PROVIDERS APPROVAL
+export const approveProvider = async (req, res) => {
+
+  try {
+
+    const profile =
+      await ProviderProfile.findById(
+        req.params.id
+      );
+
+    if (!profile) {
+
+      return res.status(404).json({
+        message: "Profile not found"
+      });
+
+    }
+
+    profile.approvalStatus = "approved";
+
+    await profile.save();
+
+    res.status(200).json({
+      success: true,
+      profile
+    });
+
+  } catch (error) {
+
+    res.status(500).json({
+      message: error.message
+    });
+
+  }
+
+};
