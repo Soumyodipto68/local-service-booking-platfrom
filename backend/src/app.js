@@ -10,6 +10,7 @@ import providerRoutes from "./routes/provider.routes.js";
 import categoryRoutes from "./routes/category.routes.js";
 import bookingRoutes from "./routes/booking.routes.js";
 import reviewRoutes from "./routes/review.routes.js";
+
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -26,12 +27,7 @@ app.use("/api/categories", categoryRoutes);
 app.use("/api/bookings", bookingRoutes);
 app.use("/api/reviews", reviewRoutes);
 
-app.use(
-  "/uploads",
-  express.static(
-    path.join(process.cwd(), "src/uploads")
-  )
-);
+app.use("/uploads",express.static(path.join(process.cwd(), "src/uploads")));
 
 app.get("/", (req, res) => {
     res.send("API Running...");

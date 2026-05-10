@@ -1,5 +1,5 @@
 import Booking from "../models/booking.model.js";
-
+import ProviderProfile from "../models/providerProfile.model.js";
 
 // CREATE BOOKING
 export const createBooking = async (req, res) => {
