@@ -11,7 +11,9 @@ import categoryRoutes from "./routes/category.routes.js";
 import bookingRoutes from "./routes/booking.routes.js";
 import reviewRoutes from "./routes/review.routes.js";
 const app = express();
-
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(cors({
     origin: "http://localhost:5173",
     credentials: true
@@ -30,10 +32,6 @@ app.use(
     path.join(process.cwd(), "src/uploads")
   )
 );
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
 
 app.get("/", (req, res) => {
     res.send("API Running...");
