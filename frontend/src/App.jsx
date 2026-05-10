@@ -8,10 +8,12 @@ import ProviderDashboard from './pages/ProviderDashboard'
 import AdminDashboard from './pages/AdminDashboard'
 import ProtectedRoute from './routes/ProtectedRoutes'
 import PublicRoute from './routes/PublicRoutes'
+import Navbar from './components/Navabr'
 
 const App = () => {
   return (
     <div>
+      <Navbar />
       <Routes>
         <Route path='/' element={
           <PublicRoute>
