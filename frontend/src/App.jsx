@@ -3,12 +3,15 @@ import { Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
-import CustomerDashboard from './pages/CustomerDashboard'
-import ProviderDashboard from './pages/ProviderDashboard'
-import AdminDashboard from './pages/AdminDashboard'
+import CustomerDashboard from './pages/Customer/CustomerDashboard'
+import ProviderDashboard from './pages/Provider/ProviderDashboard'
+import AdminDashboard from './pages/Admin/AdminDashboard'
 import ProtectedRoute from './routes/ProtectedRoutes'
 import PublicRoute from './routes/PublicRoutes'
 import Navbar from './components/Navabr'
+import Providers from './pages/Provider/Providers'
+import ProviderDetails from './pages/Provider/ProviderDetails'
+import CreateBooking from './pages/Bookings/CreateBooking'
 
 const App = () => {
   return (
@@ -45,7 +48,24 @@ const App = () => {
             <AdminDashboard />
           </ProtectedRoute>
         } />
+        <Route
+        path="/providers"
+        element={<Providers />}
+        />
+       <Route
+        path="/providers/:id"
+        element={<ProviderDetails />}
+       />
+       <Route
+       path="/book/:providerId"
+       element={
+       <ProtectedRoute role="customer">
+         <CreateBooking />
+       </ProtectedRoute>
+       }
+      />
       </Routes>
+
     </div>
   )
 }
