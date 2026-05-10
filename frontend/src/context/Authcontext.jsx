@@ -3,11 +3,8 @@ import {createContext, useContext, useEffect,useState} from "react";
 const AuthContext = createContext();
 
 export const AuthProvider = ({children}) => {
-
   const [user, setUser] =useState(null);
-
   const [loading, setLoading] =useState(true);
-
 
   // LOAD USER FROM LOCALSTORAGE
   useEffect(() => {
@@ -18,13 +15,11 @@ export const AuthProvider = ({children}) => {
     setLoading(false);
   }, []);
 
-
   // LOGIN FUNCTION
   const login = (userData) => {
     localStorage.setItem("user",JSON.stringify(userData));
     setUser(userData);
   };
-
 
   // LOGOUT FUNCTION
   const logout = () => {
@@ -32,7 +27,6 @@ export const AuthProvider = ({children}) => {
     localStorage.removeItem("token");
     setUser(null);
   };
-
 
   return (
 
