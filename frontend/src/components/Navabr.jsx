@@ -58,7 +58,8 @@ const Navbar = () => {
               onClick={logout}
               className="cursor-pointer"
             >
-              Logout
+              <Link to="/login">Logout</Link>
+              
             </button>
           )
         }

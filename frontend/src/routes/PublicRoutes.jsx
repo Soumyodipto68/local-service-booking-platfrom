@@ -15,7 +15,7 @@ const PublicRoute = ({children}) => {
     if (user.role === "customer") {
       return (
         <Navigate
-          to="/customer/dashboard"
+          to="/"
         />
       );
     }
@@ -24,7 +24,7 @@ const PublicRoute = ({children}) => {
     ) {
       return (
         <Navigate
-          to="/provider/dashboard"
+          to="/"
         />
       );
 

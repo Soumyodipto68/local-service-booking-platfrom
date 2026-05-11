@@ -1,22 +1,21 @@
-import {useEffect,useState} from "react";
-import {useParams,Link} from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useParams, Link } from "react-router-dom";
 import API from "../../api/axios";
 
 const ProviderDetails = () => {
   const { id } = useParams();
   const [provider, setProvider] = useState(null);
   const [loading, setLoading] = useState(true);
-  const fetchProvider =
-    async () => {
-      try {
-        const res =await API.get(`/provider/${id}`);
-        setProvider(res.data.provider);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchProvider = async () => {
+    try {
+      const res = await API.get(`/provider/${id}`);
+      setProvider(res.data.provider);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     fetchProvider();
@@ -28,49 +27,51 @@ const ProviderDetails = () => {
       </div>
     );
   }
+  console.log(provider);
   return (
     <div className="p-10">
       <div className=" bg-slate-800 p-8 rounded-2xl max-w-3xl " >
-        <h1 className=" text-4xl font-boldmb-4">{provider.userId?.name}</h1>
+        <h1 className=" text-4xl font-boldmb-4">{provider?.userId?.name}</h1>
         <p className="mb-3">
           Profession:
           {" "}
-          {provider.profession}
+          {provider?.profession}
         </p>
         <p className="mb-3">
           Experience:
           {" "}
-          {provider.experience}
+          {provider?.experience}
           {" "}
           years
         </p>
         <p className="mb-3">
           Hourly Rate:
-          ₹{provider.hourlyRate}
+          ₹{provider?.hourlyRate}
         </p>
         <p className="mb-3">
           City:
           {" "}
-          {provider.userId?.city}
+          {provider?.userId?.city}
         </p>
         <p className="mb-3">
           Bio:
           {" "}
-          {provider.bio}
+          {provider?.bio}
         </p>
         <p className="mb-6">
           Status:
           {" "}
           {
-            provider.availability
-            ? "Available"
-            : "Unavailable"
+            provider?.availability
+              ? "Available"
+              : "Unavailable"
           }
 
         </p>
         <Link
-          to={`/book/${provider.userId._id}`}
-          className="bg-blue-600 px-6 py-3 rounded-lg">
+          to={`/book/${provider?._id}`}
+          className="bg-blue-600 px-6 py-3 rounded-lg"
+        >
           Book Now
         </Link>
       </div>

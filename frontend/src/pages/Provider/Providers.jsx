@@ -49,14 +49,14 @@ const Providers = () => {
           placeholder="City"
           value={city}
           onChange={(e) => setCity(e.target.value)}
-          className="bg-slate-800 p-3 rounded  w-[250px]"/>
+          className="bg-slate-800 p-3 rounded  w-[250px] text-white"/>
 
         <input
           type="text"
           placeholder="Profession"
           value={profession}
           onChange={(e) => setProfession(e.target.value)}
-          className=" bg-slate-800 p-3 roundedw-[250px]"
+          className=" bg-slate-800 p-3 roundedw-[250px] text-white"
         />
 
         <button

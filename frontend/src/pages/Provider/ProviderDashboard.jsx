@@ -43,7 +43,7 @@ const ProviderDashboard = () => {
   const toggleAvailability = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await API.patch("/provider/toggle-availability", {}, {
+      const res = await API.patch("/provider/availability", {}, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setAvailability(res.data.availability);

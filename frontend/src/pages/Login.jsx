@@ -20,9 +20,9 @@ const Login = () => {
       login(res.data.user);
       // ROLE REDIRECT
       if (res.data.user.role === "customer") {
-        navigate("/customer/dashboard");
+        navigate("/");
       } else if (res.data.user.role === "provider") {
-        navigate("/provider/dashboard");
+        navigate("/");
       } else if (res.data.user.role === "admin") {
         navigate("/admin/dashboard");
       }
