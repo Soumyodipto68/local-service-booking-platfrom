@@ -33,17 +33,17 @@ const App = () => {
             <Register />
           </PublicRoute>
         } />
-        <Route path='/customer-dashboard' element={
+        <Route path='/customer/dashboard' element={
           <ProtectedRoute role="customer">
             <CustomerDashboard />
           </ProtectedRoute>
         } />
-        <Route path='/provider-dashboard' element={
+        <Route path='/provider/dashboard' element={
           <ProtectedRoute role="provider">
             <ProviderDashboard />
           </ProtectedRoute>
         } />
-        <Route path='/admin-dashboard' element={
+        <Route path='/admin/dashboard' element={
           <ProtectedRoute role="admin">
             <AdminDashboard />
           </ProtectedRoute>
