@@ -219,3 +219,52 @@ export const searchProviders = async (req, res) => {
   }
 
 };
+export const getProviderById =
+async (req, res) => {
+
+  try {
+
+    const provider =
+      await ProviderProfile.findById(
+        req.params.id
+      )
+
+      .populate(
+        "userId",
+        "name email city"
+      );
+
+    if (!provider) {
+
+      return res.status(404).json({
+
+        success: false,
+
+        message:
+          "Provider not found"
+
+      });
+
+    }
+
+    res.status(200).json({
+
+      success: true,
+
+      provider
+
+    });
+
+  } catch (error) {
+
+    res.status(500).json({
+
+      success: false,
+
+      message: error.message
+
+    });
+
+  }
+
+};

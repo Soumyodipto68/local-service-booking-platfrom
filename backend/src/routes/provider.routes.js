@@ -5,7 +5,8 @@ import {
   getMyProviderProfile,
   toggleAvailability,
   approveProvider,
-  searchProviders
+  searchProviders,
+  getProviderById
 } from "../controllers/provider.controllers.js";
 
 import { protect }
@@ -57,4 +58,10 @@ export default router;
 router.get(
   "/search",
   searchProviders
+);
+
+// GET SINGLE PROVIDER
+router.get(
+  "/:id",
+  getProviderById
 );

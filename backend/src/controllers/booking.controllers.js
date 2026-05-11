@@ -5,7 +5,8 @@ import ProviderProfile from "../models/providerProfile.model.js";
 export const createBooking = async (req, res) => {
 
   try {
-
+    console.log(req.body);
+    console.log(req.user);
     const {
       providerId,
       categoryId,
@@ -17,12 +18,9 @@ export const createBooking = async (req, res) => {
       notes,
       estimatedPrice
     } = req.body;
-
+console.log("providerId:", providerId);
     // CHECK PROVIDER PROFILE
-    const providerProfile =
-      await ProviderProfile.findOne({
-        userId: providerId
-      });
+    const providerProfile = await ProviderProfile.findById(providerId);
 
     // PROFILE EXISTS?
     if (!providerProfile) {
@@ -91,12 +89,15 @@ export const createBooking = async (req, res) => {
 
   } catch (error) {
 
-    res.status(500).json({
-      success: false,
-      message: error.message
-    });
+  console.log("BOOKING ERROR:");
+  console.log(error);
 
-  }
+  res.status(500).json({
+    success: false,
+    message: error.message
+  });
+
+}
 
 };
 
@@ -132,8 +133,24 @@ export const getProviderBookings = async (req, res) => {
 
   try {
 
+    // FIND PROVIDER PROFILE
+    const providerProfile =
+      await ProviderProfile.findOne({
+        userId: req.user._id
+      });
+
+    if (!providerProfile) {
+
+      return res.status(404).json({
+        success: false,
+        message: "Provider profile not found"
+      });
+
+    }
+
+    // FIND BOOKINGS
     const bookings = await Booking.find({
-      providerId: req.user._id
+      providerId: providerProfile._id
     })
     .populate("customerId", "name email")
     .populate("categoryId", "name");
@@ -341,4 +358,5 @@ export const cancelBooking = async (req, res) => {
   }
 
 };
+
 
