@@ -1,85 +1,205 @@
 import { useEffect, useState } from "react";
+import {
+  Search,
+  MapPin,
+  Briefcase,
+} from "lucide-react";
 
 import API from "../../api/axios";
-
 import ProviderCard from "../../components/ProviderCard";
 
 const Providers = () => {
-  const [providers, setProviders] = useState([]);
 
-  const [loading, setLoading] = useState(true);
+  const [providers, setProviders] =
+    useState([]);
 
-  const [city, setCity] = useState("");
+  const [loading, setLoading] =
+    useState(true);
 
-  const [profession, setProfession] = useState("");
+  const [city, setCity] =
+    useState("");
+
+  const [profession, setProfession] =
+    useState("");
 
   // FETCH PROVIDERS
   const fetchProviders = async () => {
+
     try {
+
+      setLoading(true);
+
       const res = await API.get(
         `/provider/search?city=${city}&profession=${profession}`
       );
-      setProviders(res.data.providers);
+
+      setProviders(
+        res.data.providers
+      );
+
     } catch (error) {
+
       console.log(error);
+
     } finally {
+
       setLoading(false);
+
     }
+
   };
+
   useEffect(() => {
+
     fetchProviders();
+
   }, []);
 
   const handleSearch = () => {
+
     fetchProviders();
+
   };
 
-  if (loading) {
-    return <div className="p-10">Loading...</div>;
-  }
-
   return (
-    <div className="p-10">
-      <h1 className="text-4xl font-bold mb-8">Service Providers</h1>
+
+    <div className="min-h-screen bg-slate-950 text-white px-6 md:px-10 pt-32 pb-10">
+
+      {/* HEADER */}
+      <div className="mb-10">
+
+        <h1 className="text-4xl md:text-5xl font-extrabold mb-3">
+          Service Providers
+        </h1>
+
+        <p className="text-slate-400 text-lg">
+          Find trusted professionals
+          near you
+        </p>
+
+      </div>
 
       {/* FILTERS */}
-      <div className="flex gap-4 mb-10">
-        <input
-          type="text"
-          placeholder="City"
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
-          className="bg-slate-800 p-3 rounded  w-[250px] text-white"/>
+      <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 mb-10">
 
-        <input
-          type="text"
-          placeholder="Profession"
-          value={profession}
-          onChange={(e) => setProfession(e.target.value)}
-          className=" bg-slate-800 p-3 roundedw-[250px] text-white"
-        />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 
-        <button
-          onClick={handleSearch}
-          className="bg-blue-600 px-6 rounded text-white hover:bg-blue-700 transition" >
-          Search
-        </button>
+          {/* CITY */}
+          <div className="flex items-center bg-slate-800 border border-slate-700 rounded-xl px-4">
+
+            <MapPin
+              size={18}
+              className="text-slate-400"
+            />
+
+            <input
+              type="text"
+              placeholder="Search by city"
+              value={city}
+              onChange={(e) =>
+                setCity(e.target.value)
+              }
+              className="w-full bg-transparent p-4 outline-none text-white placeholder:text-slate-500"
+            />
+
+          </div>
+
+          {/* PROFESSION */}
+          <div className="flex items-center bg-slate-800 border border-slate-700 rounded-xl px-4">
+
+            <Briefcase
+              size={18}
+              className="text-slate-400"
+            />
+
+            <input
+              type="text"
+              placeholder="Search profession"
+              value={profession}
+              onChange={(e) =>
+                setProfession(
+                  e.target.value
+                )
+              }
+              className="w-full bg-transparent p-4 outline-none text-white placeholder:text-slate-500"
+            />
+
+          </div>
+
+          {/* BUTTON */}
+          <button
+            onClick={handleSearch}
+            className="flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 transition-all duration-300 rounded-xl font-semibold py-4"
+          >
+
+            <Search size={18} />
+
+            Search
+
+          </button>
+
+        </div>
+
       </div>
+
+      {/* LOADING */}
+      {
+        loading && (
+
+          <div className="text-center py-20 text-slate-400 text-lg">
+            Loading providers...
+          </div>
+
+        )
+      }
 
       {/* PROVIDERS GRID */}
-      <div
-        className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-      >
-        {providers.length > 0 ? (
-          providers.map((provider) => (
-            <ProviderCard key={provider._id} provider={provider} />
-          ))
-        ) : (
-          <p>No providers found</p>
-        )}
-      </div>
+      {
+        !loading && (
+
+          providers.length > 0 ? (
+
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+
+              {
+                providers.map(
+                  (provider) => (
+
+                    <ProviderCard
+                      key={provider._id}
+                      provider={provider}
+                    />
+
+                  )
+                )
+              }
+
+            </div>
+
+          ) : (
+
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-16 text-center">
+
+              <h2 className="text-2xl font-bold mb-3">
+                No Providers Found
+              </h2>
+
+              <p className="text-slate-400">
+                Try changing your
+                search filters
+              </p>
+
+            </div>
+
+          )
+
+        )
+      }
+
     </div>
+
   );
+
 };
 
 export default Providers;
