@@ -5,8 +5,6 @@ import ProviderProfile from "../models/providerProfile.model.js";
 export const createBooking = async (req, res) => {
 
   try {
-    console.log(req.body);
-    console.log(req.user);
     const {
       providerId,
       categoryId,
@@ -359,4 +357,31 @@ export const cancelBooking = async (req, res) => {
 
 };
 
+export const getCategories = async (req, res) => {
+  try {
+
+    const categories =
+      await Category.find();
+
+    res.status(200).json({
+
+      success: true,
+
+      categories
+
+    });
+
+  } catch (error) {
+
+    res.status(500).json({
+
+      success: false,
+
+      message: error.message
+
+    });
+
+  }
+
+};
 
