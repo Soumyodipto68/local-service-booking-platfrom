@@ -67,12 +67,30 @@ router.patch(
 
 // COMPLETE BOOKING
 router.patch(
-  "/:id/complete",
-  protect,
-  authorizeRoles("provider"),
-  completeBooking
-);
 
+  "/:id/complete",
+
+  protect,
+
+  authorizeRoles("provider"),
+
+  upload.fields([
+
+    {
+      name: "beforeImage",
+      maxCount: 1
+    },
+
+    {
+      name: "afterImage",
+      maxCount: 1
+    }
+
+  ]),
+
+  completeBooking
+
+);
 
 // CANCEL BOOKING
 router.patch(
