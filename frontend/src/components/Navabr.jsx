@@ -105,6 +105,7 @@ const Navbar = () => {
 
           {/* USER INFO */}
           {user && (
+            <NavLink to={`/${user.role}/profile`}>
             <div className="flex items-center gap-4 ml-4">
 
               {/* USER AVATAR */}
@@ -135,6 +136,8 @@ const Navbar = () => {
               </button>
 
             </div>
+            </NavLink>
+
           )}
         </div>
       </div>

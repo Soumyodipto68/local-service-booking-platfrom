@@ -12,6 +12,9 @@ import Navbar from './components/Navabr'
 import Providers from './pages/Provider/Providers'
 import ProviderDetails from './pages/Provider/ProviderDetails'
 import CreateBooking from './pages/Bookings/CreateBooking'
+import CustomerProfile from './pages/Customer/CustomerProfile'
+import ProviderProfile from './pages/Provider/ProviderProfile'
+import AdminProfile from './pages/Admin/AdminProfile'
 
 const App = () => {
   return (
@@ -19,7 +22,7 @@ const App = () => {
       <Navbar />
       <Routes>
         <Route path='/' element={
-            <Home />
+          <Home />
         } />
         <Route path='/login' element={
           <PublicRoute>
@@ -47,21 +50,35 @@ const App = () => {
           </ProtectedRoute>
         } />
         <Route
-        path="/providers"
-        element={<Providers />}
+          path="/providers"
+          element={<Providers />}
         />
-       <Route
-        path="/providers/:id"
-        element={<ProviderDetails />}
-       />
-       <Route
-       path="/book/:providerId"
-       element={
-       <ProtectedRoute role="customer">
-         <CreateBooking />
-       </ProtectedRoute>
-       }
-      />
+        <Route
+          path="/providers/:id"
+          element={<ProviderDetails />}
+        />
+        <Route
+          path="/book/:providerId"
+          element={
+            <ProtectedRoute role="customer">
+              <CreateBooking />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/customer/profile"
+          element={<CustomerProfile />}
+        />
+
+        <Route
+          path="/provider/profile"
+          element={<ProviderProfile />}
+        />
+
+        <Route
+          path="/admin/profile"
+          element={<AdminProfile />}
+        />
       </Routes>
 
     </div>
