@@ -96,11 +96,10 @@ console.log("providerId:", providerId);
   });
 
 }
-const io =
-  req.app.get("io");
+const io = req.app.get("io");
 
-
-io.to(providerId).emit(
+io.to( providerProfile.userId.toString()
+).emit(
 
   "new-booking",
 
