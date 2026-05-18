@@ -1,5 +1,5 @@
 import {createContext, useContext, useEffect,useState} from "react";
-
+import socket from "../socket";
 const AuthContext = createContext();
 
 export const AuthProvider = ({children}) => {
@@ -21,6 +21,18 @@ export const AuthProvider = ({children}) => {
     setUser(userData);
   };
 
+useEffect(() => {
+
+  if (user?._id) {
+
+    socket.emit(
+      "join",
+      user._id
+    );
+
+  }
+
+}, [user]);
   // LOGOUT FUNCTION
   const logout = () => {
     localStorage.removeItem("user");

@@ -1,8 +1,5 @@
-import {
-  useEffect,
-  useState,
-} from "react";
-
+import {useEffect,useState,} from "react";
+import socket from "../../socket";
 import {
   CheckCircle,
   Clock3,
@@ -105,6 +102,33 @@ const ProviderDashboard = () => {
       }
 
     };
+
+useEffect(() => {
+
+  socket.on(
+
+    "new-booking",
+
+    (data) => {
+
+      alert(data.message);
+
+      fetchBookings();
+
+    }
+
+  );
+
+
+  return () => {
+
+    socket.off(
+      "new-booking"
+    );
+
+  };
+
+}, []);    
 
   // TOGGLE AVAILABILITY
   const toggleAvailability =
