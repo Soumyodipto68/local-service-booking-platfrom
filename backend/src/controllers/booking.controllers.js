@@ -96,6 +96,24 @@ console.log("providerId:", providerId);
   });
 
 }
+const io =
+  req.app.get("io");
+
+
+io.to(providerId).emit(
+
+  "new-booking",
+
+  {
+
+    message:
+      "New booking received",
+
+    booking
+
+  }
+
+);
 
 };
 
